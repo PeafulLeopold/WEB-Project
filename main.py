@@ -15,10 +15,8 @@ def get_cake_data():
         'popular_cakes': [
             {'image': 'strawberry_basil.jpg', 'name': 'Клубника-базилик', 
              'description': 'Нежный бисквит с клубникой и свежим базиликом', 'price': 2800},
-            {'image': 'chocolate-passion.jpg', 'name': 'Шоколадная страсть', 
-             'description': 'Насыщенный шоколадный торт с малиной', 'price': 2500},
-            {'image': 'caramel-dream.jpg', 'name': 'Карамельная мечта', 
-             'description': 'Воздушный торт с карамелью и орехами', 'price': 2700},
+            {'image': 'cherry_mulled_wine.jpg', 'name': 'Вишня-глинтвейн', 
+             'description': 'Нежный чизкейк с ягодами вишни, сочной прослойкой со вкусом глинтвейна', 'price': 2700},
             {'image': 'lavender-blueberry.jpg', 'name': 'Лаванда-черника', 
              'description': 'Нежный торт с лавандой и черникой', 'price': 2900}
         ]
