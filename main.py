@@ -1,15 +1,35 @@
 from flask import Flask, render_template
-from db.database import db
 import os
-
 
 app = Flask(__name__, static_folder='media', static_url_path='/media')
 app.config['SECRET_KEY'] = 'your_secret_key'
 
+# Данные для примера (в реальном приложении нужно брать из БД)
+def get_cake_data():
+    return {
+        'slider_cakes': [
+            {'image': 'strawberry_basil.jpg', 'name': 'Клубника-базилик', 'price': 2800},
+            {'image': 'cherry_mulled_wine.jpg', 'name': 'Вишня-глинтвейн', 'price': 3200},
+            {'image': 'lavender-blueberry.jpg', 'name': 'Лаванда-черника', 'price': 2900}
+        ],
+        'popular_cakes': [
+            {'image': 'strawberry_basil.jpg', 'name': 'Клубника-базилик', 
+             'description': 'Нежный бисквит с клубникой и свежим базиликом', 'price': 2800},
+            {'image': 'chocolate-passion.jpg', 'name': 'Шоколадная страсть', 
+             'description': 'Насыщенный шоколадный торт с малиной', 'price': 2500},
+            {'image': 'caramel-dream.jpg', 'name': 'Карамельная мечта', 
+             'description': 'Воздушный торт с карамелью и орехами', 'price': 2700},
+            {'image': 'lavender-blueberry.jpg', 'name': 'Лаванда-черника', 
+             'description': 'Нежный торт с лавандой и черникой', 'price': 2900}
+        ]
+    }
 
 @app.route('/')
 def index():
-    return render_template('index.html')
+    cakes = get_cake_data()
+    return render_template('index.html', 
+                         slider_cakes=cakes['slider_cakes'],
+                         popular_cakes=cakes['popular_cakes'])
 
 @app.route('/about')
 def about():

@@ -3,31 +3,104 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Cake Store</title>
+  <title>Cake Store - Главная</title>
   <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
   <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700&display=swap" rel="stylesheet">
 </head>
 <body>
   <header>
-    <h1>Cake Store</h1>
+    <div class="container">
+      <h1>Cake Store</h1>
+      <nav>
+        <a href="{{ url_for('index') }}">Главная</a>
+        <a href="{{ url_for('menu') }}">Меню</a>
+        <a href="{{ url_for('about') }}">О нас</a>
+        <a href="{{ url_for('contact') }}">Контакты</a>
+      </nav>
+    </div>
   </header>
+
   <main>
+    <!-- Герой-секция -->
     <section class="hero">
-      <h2>Добро пожаловать!</h2>
-      <p>Закажите свой идеальный торт прямо сейчас.</p>
-      <a href="#" class="btn">Заказать торт</a>
+      <div class="container">
+        <h2>Авторские торты на заказ</h2>
+        <p>Создаем сладкие шедевры по вашим пожеланиям</p>
+        <a href="{{ url_for('contact') }}" class="btn">Сделать заказ</a>
+      </div>
     </section>
-    <section class="slider">
-      <div class="slides">
-        <div class="slide"><img src="{{ url_for('static', filename='images/cake1.jpg') }}" alt="Торт 1"></div>
-        <div class="slide"><img src="{{ url_for('static', filename='images/cake2.jpg') }}" alt="Торт 2"></div>
-        <div class="slide"><img src="{{ url_for('static', filename='images/cake3.jpg') }}" alt="Торт 3"></div>
+
+    <!-- Слайдер с тортами -->
+    <section class="slider-section">
+      <div class="container">
+        <h2>Наши хиты продаж</h2>
+        <div class="slider">
+          <div class="slides">
+            {% for cake in slider_cakes %}
+            <div class="slide">
+              <img src="{{ url_for('static', filename='images/cakes/' + cake.image) }}" alt="{{ cake.name }}">
+              <div class="slide-caption">
+                <h3>{{ cake.name }}</h3>
+                <p>от {{ cake.price }} руб.</p>
+              </div>
+            </div>
+            {% endfor %}
+          </div>
+          <button class="slider-btn prev">❮</button>
+          <button class="slider-btn next">❯</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- Галерея тортов -->
+    <section class="gallery">
+      <div class="container">
+        <h2>Популярные торты</h2>
+        <div class="cake-grid">
+          {% for cake in popular_cakes %}
+          <div class="cake-card">
+            <img src="{{ url_for('static', filename='images/cakes/' + cake.image) }}" alt="{{ cake.name }}">
+            <div class="cake-info">
+              <h3>{{ cake.name }}</h3>
+              <p class="description">{{ cake.description }}</p>
+              <p class="price">{{ cake.price }} руб.</p>
+              <a href="#" class="btn small">Заказать</a>
+            </div>
+          </div>
+          {% endfor %}
+        </div>
+      </div>
+    </section>
+
+    <!-- Блок с призывом к действию -->
+    <section class="cta">
+      <div class="container">
+        <h2>Хотите индивидуальный торт?</h2>
+        <p>Мы создадим уникальный десерт специально для вас</p>
+        <a href="{{ url_for('contact') }}" class="btn">Обсудить заказ</a>
       </div>
     </section>
   </main>
+
   <footer>
-    <p>&copy; 2025 Cake Store. Все права защищены.</p>
+    <div class="container">
+      <div class="footer-content">
+        <div class="footer-info">
+          <h3>Cake Store</h3>
+          <p>Кондитерская с любовью к своему делу</p>
+        </div>
+        <div class="footer-contacts">
+          <h3>Контакты</h3>
+          <p>г. Москва, ул. Сладкая, 15</p>
+          <p>+7 (999) 123-45-67</p>
+        </div>
+      </div>
+      <div class="copyright">
+        <p>&copy; 2025 Cake Store. Все права защищены.</p>
+      </div>
+    </div>
   </footer>
+
   <script src="{{ url_for('static', filename='js/slider.js') }}"></script>
 </body>
 </html>
