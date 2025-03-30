@@ -1,31 +1,50 @@
 from flask import Flask, render_template
-import os
 
 app = Flask(__name__, static_folder='media', static_url_path='/media')
 app.config['SECRET_KEY'] = 'your_secret_key'
 
-
 def get_cake_data():
     return {
         'slider_cakes': [
-            {'image': 'strawberry_basil.jpg', 'name': 'Клубника-базилик', 'price': 2800},
-            {'image': 'cherry_mulled_wine.jpg', 'name': 'Вишня-глинтвейн', 'price': 3200},
-            {'image': 'lavender-blueberry.jpg', 'name': 'Лаванда-черника', 'price': 2900}
+            {
+                'image': 'strawberry_basil.jpg',
+                'name': 'Клубника-базилик',
+                'price': 2800,
+                'description': 'Воздушный бисквит с клубничным крем-чизом и листьями свежего базилика'
+            },
+            {
+                'image': 'cherry_mulled_wine.jpg',
+                'name': 'Вишня-глинтвейн',
+                'price': 3200,
+                'description': 'Шоколадный торт с вишневой начинкой и пряностями глинтвейна'
+            },
+            {
+                'image': 'lavender-blueberry.jpg',
+                'name': 'Лаванда-черника',
+                'price': 2900,
+                'description': 'Ванильный торт с черничным конфитюром и лавандовым кремом'
+            }
         ],
         'popular_cakes': [
-            {'image': 'strawberry_basil.jpg', 'name': 'Клубника-базилик', 
-             'description': 'Нежный бисквит с клубникой и свежим базиликом', 'price': 2800},
-            {'image': 'herry_mulled_wine.jpg', 'name': 'Вишня-глинтвейн', 
-             'description': 'Нежный чизкейк с ягодами вишни, сочной прослойкой со вкусом глинтвейна', 'price': 2700},
-            {'image': 'lavender-blueberry.jpg', 'name': 'Лаванда-черника', 
-             'description': 'Нежный торт с лавандой и черникой', 'price': 2900}
+            {
+                'image': 'strawberry_basil.jpg',
+                'name': 'Клубника-базилик',
+                'description': 'Нежный бисквит с клубникой и свежим базиликом',
+                'price': 2800
+            },
+            {
+                'image': 'cherry_mulled_wine.jpg',
+                'name': 'Вишня-глинтвейн',
+                'description': 'Чизкейк с ягодами вишни и прослойкой со вкусом глинтвейна',
+                'price': 3200
+            }
         ]
     }
 
 @app.route('/')
 def index():
     cakes = get_cake_data()
-    return render_template('index.html', 
+    return render_template('index.html',
                          slider_cakes=cakes['slider_cakes'],
                          popular_cakes=cakes['popular_cakes'])
 
@@ -42,4 +61,4 @@ def contact():
     return render_template('contact.html')
 
 if __name__ == '__main__':
-    app.run()
+    app.run(debug=True)
