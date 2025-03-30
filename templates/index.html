@@ -46,13 +46,12 @@
                               <h3 class="cake-title">{{ cake.name }}</h3>
                               <p class="cake-description">{{ cake.description }}</p>
                               <div class="cake-price">от {{ cake.price }} ₽</div>
+                              <a href="{{ url_for('contact') }}" class="slide-order-btn">Заказать</a>
                           </div>
                       </div>
                   </div>
                   {% endfor %}
               </div>
-              <button class="slider-btn prev">❮</button>
-              <button class="slider-btn next">❯</button>
           </div>
       </div>
   </section>
