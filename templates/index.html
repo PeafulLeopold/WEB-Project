@@ -12,33 +12,33 @@
     <div class="container">
       <h1>Cake Store</h1>
       <nav>
-        <a href="{{ url_for('index') }}">Главная</a>
-        <a href="{{ url_for('menu') }}">Меню</a>
-        <a href="{{ url_for('about') }}">О нас</a>
-        <a href="{{ url_for('contact') }}">Контакты</a>
+        <ul class="nav-list">
+          <li><a href="{{ url_for('index') }}" class="nav-link active">Главная</a></li>
+          <li><a href="{{ url_for('menu') }}" class="nav-link">Меню</a></li>
+          <li><a href="{{ url_for('about') }}" class="nav-link">О нас</a></li>
+          <li><a href="{{ url_for('contact') }}" class="nav-link">Контакты</a></li>
+        </ul>
       </nav>
     </div>
   </header>
 
   <main>
-    <!-- Герой-секция -->
-    <section class="hero">
+    <section class="hero section-spacing">
       <div class="container">
         <h2>Авторские торты на заказ</h2>
-        <p>Создаем сладкие шедевры по вашим пожеланиям</p>
+        <p class="hero-subtitle">Создаем сладкие шедевры по вашим пожеланиям</p>
         <a href="{{ url_for('contact') }}" class="btn">Сделать заказ</a>
       </div>
     </section>
 
-    <!-- Слайдер с тортами -->
-    <section class="slider-section">
+    <section class="slider-section section-spacing">
       <div class="container">
-        <h2>Наши хиты продаж</h2>
+        <h2 class="section-title">Наши хиты продаж</h2>
         <div class="slider">
           <div class="slides">
             {% for cake in slider_cakes %}
             <div class="slide">
-              <img src="{{ url_for('static', filename='images/cakes/' + cake.image) }}" alt="{{ cake.name }}">
+              <img src="{{ url_for('static', filename='data/images/cakes/' + cake.image) }}" alt="{{ cake.name }}">
               <div class="slide-caption">
                 <h3>{{ cake.name }}</h3>
                 <p>от {{ cake.price }} руб.</p>
@@ -52,10 +52,9 @@
       </div>
     </section>
 
-    <!-- Галерея тортов -->
-    <section class="gallery">
+    <section class="gallery section-spacing">
       <div class="container">
-        <h2>Популярные торты</h2>
+        <h2 class="section-title">Популярные торты</h2>
         <div class="cake-grid">
           {% for cake in popular_cakes %}
           <div class="cake-card">
@@ -72,11 +71,10 @@
       </div>
     </section>
 
-    <!-- Блок с призывом к действию -->
-    <section class="cta">
+    <section class="cta section-spacing">
       <div class="container">
-        <h2>Хотите индивидуальный торт?</h2>
-        <p>Мы создадим уникальный десерт специально для вас</p>
+        <h2 class="section-title">Хотите индивидуальный торт?</h2>
+        <p class="cta-text">Мы создадим уникальный десерт специально для вас</p>
         <a href="{{ url_for('contact') }}" class="btn">Обсудить заказ</a>
       </div>
     </section>

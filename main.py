@@ -4,7 +4,7 @@ import os
 app = Flask(__name__, static_folder='media', static_url_path='/media')
 app.config['SECRET_KEY'] = 'your_secret_key'
 
-# Данные для примера (в реальном приложении нужно брать из БД)
+
 def get_cake_data():
     return {
         'slider_cakes': [
@@ -15,7 +15,7 @@ def get_cake_data():
         'popular_cakes': [
             {'image': 'strawberry_basil.jpg', 'name': 'Клубника-базилик', 
              'description': 'Нежный бисквит с клубникой и свежим базиликом', 'price': 2800},
-            {'image': 'cherry_mulled_wine.jpg', 'name': 'Вишня-глинтвейн', 
+            {'image': 'herry_mulled_wine.jpg', 'name': 'Вишня-глинтвейн', 
              'description': 'Нежный чизкейк с ягодами вишни, сочной прослойкой со вкусом глинтвейна', 'price': 2700},
             {'image': 'lavender-blueberry.jpg', 'name': 'Лаванда-черника', 
              'description': 'Нежный торт с лавандой и черникой', 'price': 2900}
