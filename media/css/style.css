@@ -280,3 +280,133 @@ footer {
         gap: 30px;
     }
 }
+/* About Page Styles */
+.about-hero {
+    background-color: #fff;
+  }
+  
+  .about-content {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 50px;
+    align-items: center;
+  }
+  
+  .about-text h3 {
+    margin: 25px 0 15px;
+    color: #ff6f61;
+    font-size: 1.5rem;
+  }
+  
+  .features-list {
+    margin: 20px 0;
+    padding-left: 20px;
+  }
+  
+  .features-list li {
+    margin: 10px 0;
+    list-style-type: none;
+    position: relative;
+    padding-left: 30px;
+  }
+  
+  .features-list li:before {
+    content: "✓";
+    color: #ff6f61;
+    position: absolute;
+    left: 0;
+    font-weight: bold;
+  }
+  
+  .about-image {
+    position: relative;
+  }
+  
+  .team-photo {
+    width: 100%;
+    border-radius: 12px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+  }
+  
+  .awards {
+    display: flex;
+    justify-content: space-around;
+    margin-top: 30px;
+  }
+  
+  .award {
+    text-align: center;
+  }
+  
+  .award img {
+    width: 80px;
+    height: 80px;
+    object-fit: contain;
+    margin-bottom: 10px;
+  }
+  
+  .award p {
+    font-size: 0.9rem;
+    font-weight: 500;
+  }
+  
+  /* Process Section */
+  .light-bg {
+    background-color: #f9f9f9;
+  }
+  
+  .process-steps {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 30px;
+    margin-top: 50px;
+  }
+  
+  .step {
+    text-align: center;
+    padding: 30px 20px;
+    background: white;
+    border-radius: 12px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+    transition: transform 0.3s;
+  }
+  
+  .step:hover {
+    transform: translateY(-10px);
+  }
+  
+  .step-number {
+    width: 50px;
+    height: 50px;
+    background: #ff6f61;
+    color: white;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.5rem;
+    font-weight: bold;
+    margin: 0 auto 20px;
+  }
+  
+  .step h3 {
+    margin: 15px 0;
+    color: #333;
+  }
+  
+  /* Responsive */
+  @media (max-width: 768px) {
+    .about-content {
+      grid-template-columns: 1fr;
+    }
+    
+    .process-steps {
+      grid-template-columns: 1fr 1fr;
+    }
+  }
+  
+  @media (max-width: 480px) {
+    .process-steps {
+      grid-template-columns: 1fr;
+    }
+  }

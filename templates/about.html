@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cake Store - О нас</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+  <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700&display=swap" rel="stylesheet">
+</head>
+<body>
+  <header>
+    <div class="container">
+      <h1>Cake Store</h1>
+      <nav>
+        <ul class="nav-list">
+          <li><a href="{{ url_for('index') }}" class="nav-link">Главная</a></li>
+          <li><a href="{{ url_for('menu') }}" class="nav-link">Меню</a></li>
+          <li><a href="{{ url_for('about') }}" class="nav-link active">О нас</a></li>
+          <li><a href="{{ url_for('contact') }}" class="nav-link">Контакты</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <section class="about-hero section-spacing">
+      <div class="container">
+        <h2 class="section-title">Наша история</h2>
+        <div class="about-content">
+          <div class="about-text">
+            <p>Добро пожаловать в Cake Store - кондитерскую, где каждый торт это произведение искусства!</p>
+            
+            <h3>Наша философия</h3>
+            <p>Мы верим, что настоящий торт - это не просто десерт, а эмоция, которая остаётся в памяти. С 2021 года мы создаём торты, которые становятся центром праздника и вызывают искренние улыбки.</p>
+            
+            <h3>Почему выбирают нас?</h3>
+            <ul class="features-list">
+              <li>✅ Только натуральные ингредиенты высшего качества</li>
+              <li>✅ Уникальные рецепты, разработанные нашими кондитерами</li>
+              <li>✅ Индивидуальный подход к каждому заказу</li>
+              <li>✅ Более 500 довольных клиентов ежегодно</li>
+              <li>✅ Современные технологии и традиционные методы</li>
+            </ul>
+            
+            <h3>Наша команда</h3>
+            <p>За каждым тортом стоит команда профессионалов: кондитеры с 10-летним опытом, дизайнеры, которые превращают ваши идеи в реальность, и внимательные менеджеры, которые сопровождают ваш заказ от идеи до доставки.</p>
+          </div>
+          
+          <div class="about-image">
+            <img src="{{ url_for('static', filename='images/about/team.jpg') }}" alt="Наша команда" class="team-photo">
+            <div class="awards">
+              <div class="award">
+                <img src="{{ url_for('static', filename='images/about/award1.jpg') }}" alt="Награда 1">
+                <p>Лучшая кондитерская 2024</p>
+              </div>
+              <div class="award">
+                <img src="{{ url_for('static', filename='images/about/award2.jpg') }}" alt="Награда 2">
+                <p>Выбор покупателей</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="process section-spacing light-bg">
+      <div class="container">
+        <h2 class="section-title">Как мы работаем</h2>
+        <div class="process-steps">
+          <div class="step">
+            <div class="step-number">1</div>
+            <h3>Консультация</h3>
+            <p>Обсуждаем ваши пожелания, вкусы и дизайн</p>
+          </div>
+          <div class="step">
+            <div class="step-number">2</div>
+            <h3>Разработка</h3>
+            <p>Создаём уникальный рецепт и дизайн</p>
+          </div>
+          <div class="step">
+            <div class="step-number">3</div>
+            <h3>Приготовление</h3>
+            <p>Готовим торт с любовью и вниманием к деталям</p>
+          </div>
+          <div class="step">
+            <div class="step-number">4</div>
+            <h3>Доставка</h3>
+            <p>Аккуратно доставляем в назначенное время</p>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="container">
+      <div class="footer-content">
+        <div class="footer-info">
+          <h3>Cake Store</h3>
+          <p>Кондитерская с любовью к своему делу</p>
+        </div>
+        <div class="footer-contacts">
+          <h3>Контакты</h3>
+          <p>г. Москва, ул. ...</p>
+          <p>+7 (111) 23-33-44</p>
+        </div>
+      </div>
+      <div class="copyright">
+        <p>&copy; 2025 Cake Store. Все права защищены.</p>
+      </div>
+    </div>
+  </footer>
+</body>
+</html>
