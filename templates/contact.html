@@ -1,84 +1,141 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-    <!-- Заголовок и мета-теги как в index.html -->
-    <title>Cake Store - Контакты</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cake Store - Контакты</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+  <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700&display=swap" rel="stylesheet">
+  <!-- Font Awesome для иконок -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
 <body>
-    <!-- Шапка как в index.html -->
+  <!-- Шапка (как в index.html) -->
+  <header>
+    <div class="container">
+      <h1>Cake Store</h1>
+      <nav>
+        <ul class="nav-list">
+          <li><a href="{{ url_for('index') }}" class="nav-link">Главная</a></li>
+          <li><a href="{{ url_for('menu') }}" class="nav-link">Меню</a></li>
+          <li><a href="{{ url_for('about') }}" class="nav-link">О нас</a></li>
+          <li><a href="{{ url_for('contact') }}" class="nav-link active">Контакты</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
 
-    <main>
-        <section class="contact-section section-spacing">
-            <div class="container">
-                <h2 class="section-title">Наши контакты</h2>
-                
-                <div class="contact-grid">
-                    <div class="contact-info">
-                        <h3>Как нас найти</h3>
-                        <div class="contact-item">
-                            <i class="fas fa-map-marker-alt"></i>
-                            <p>г. Москва, ул. Кондитерская, 15<br>(м. Сладкое, 5 минут пешком)</p>
-                        </div>
-                        <div class="contact-item">
-                            <i class="fas fa-phone"></i>
-                            <p>+7 (495) 123-45-67<br>+7 (977) 765-43-21 (WhatsApp)</p>
-                        </div>
-                        <div class="contact-item">
-                            <i class="fas fa-envelope"></i>
-                            <p>info@cakestore.ru<br>orders@cakestore.ru (для заказов)</p>
-                        </div>
-                        <div class="contact-item">
-                            <i class="fas fa-clock"></i>
-                            <p>Ежедневно с 9:00 до 21:00<br>Прием заказов онлайн - круглосуточно</p>
-                        </div>
-                    </div>
-                    
-                    <div class="contact-form">
-                        <h3>Форма обратной связи</h3>
-                        <form action="#" method="POST">
-                            <div class="form-group">
-                                <input type="text" name="name" placeholder="Ваше имя" required>
-                            </div>
-                            <div class="form-group">
-                                <input type="email" name="email" placeholder="Ваш email" required>
-                            </div>
-                            <div class="form-group">
-                                <input type="tel" name="phone" placeholder="Ваш телефон">
-                            </div>
-                            <div class="form-group">
-                                <textarea name="message" placeholder="Ваше сообщение" rows="5" required></textarea>
-                            </div>
-                            <button type="submit" class="btn">Отправить сообщение</button>
-                        </form>
-                    </div>
-                </div>
-                
-                <div class="social-links">
-                    <h3>Мы в соцсетях</h3>
-                    <div class="social-icons">
-                        <a href="#" class="social-icon"><i class="fab fa-instagram"></i></a>
-                        <a href="#" class="social-icon"><i class="fab fa-vk"></i></a>
-                        <a href="#" class="social-icon"><i class="fab fa-telegram"></i></a>
-                        <a href="#" class="social-icon"><i class="fab fa-whatsapp"></i></a>
-                    </div>
-                </div>
-            </div>
-        </section>
+  <main>
+    <!-- Секция контактов -->
+    <section class="section-spacing">
+      <div class="container">
+        <h2 class="section-title">Наши контакты</h2>
         
-        <section class="map-section">
-            <div class="container">
-                <h3 class="section-subtitle">Карта проезда</h3>
-                <div class="map-container">
-                    <!-- Здесь будет код карты (Яндекс или Google) -->
-                    <iframe src="https://yandex.ru/map-widget/v1/?um=..." frameborder="0" allowfullscreen="true"></iframe>
-                </div>
+        <div class="contact-grid">
+          <!-- Блок с контактной информацией -->
+          <div class="contact-info">
+            <div class="contact-item">
+              <i class="fas fa-map-marker-alt"></i>
+              <div>
+                <h3>Адрес</h3>
+                <p>г. Москва, ул. Кондитерская, 15</p>
+                <p class="small-text">(5 минут от м. Сладкое)</p>
+              </div>
             </div>
-        </section>
-    </main>
+            
+            <div class="contact-item">
+              <i class="fas fa-phone"></i>
+              <div>
+                <h3>Телефоны</h3>
+                <p>+7 (495) 123-45-67</p>
+                <p>+7 (977) 765-43-21 (WhatsApp)</p>
+              </div>
+            </div>
+            
+            <div class="contact-item">
+              <i class="fas fa-envelope"></i>
+              <div>
+                <h3>Email</h3>
+                <p>info@cakestore.ru</p>
+                <p>orders@cakestore.ru (для заказов)</p>
+              </div>
+            </div>
+            
+            <div class="contact-item">
+              <i class="fas fa-clock"></i>
+              <div>
+                <h3>Часы работы</h3>
+                <p>Ежедневно с 9:00 до 21:00</p>
+                <p class="small-text">Прием заказов онлайн — круглосуточно</p>
+              </div>
+            </div>
+          </div>
+          
+          <!-- Форма обратной связи -->
+          <div class="contact-form">
+            <h3>Напишите нам</h3>
+            <form action="#" method="POST">
+              <div class="form-group">
+                <input type="text" name="name" placeholder="Ваше имя" required>
+              </div>
+              <div class="form-group">
+                <input type="email" name="email" placeholder="Ваш email" required>
+              </div>
+              <div class="form-group">
+                <input type="tel" name="phone" placeholder="Ваш телефон">
+              </div>
+              <div class="form-group">
+                <textarea name="message" placeholder="Ваше сообщение" rows="5" required></textarea>
+              </div>
+              <button type="submit" class="btn">Отправить</button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </section>
+    
+    <!-- Секция с картой -->
+    <section class="light-bg section-spacing">
+      <div class="container">
+        <h2 class="section-title">Как нас найти</h2>
+        <div class="map-container">
+          <iframe src="https://yandex.ru/map-widget/v1/?um=constructor%3A1a2b3c4d5e6f7g8h9i0j..." frameborder="0"></iframe>
+        </div>
+      </div>
+    </section>
+    
+    <!-- Секция соцсетей -->
+    <section class="section-spacing">
+      <div class="container">
+        <h2 class="section-title">Мы в соцсетях</h2>
+        <div class="social-links">
+          <a href="#" class="social-link"><i class="fab fa-instagram"></i> Instagram</a>
+          <a href="#" class="social-link"><i class="fab fa-vk"></i> ВКонтакте</a>
+          <a href="#" class="social-link"><i class="fab fa-telegram"></i> Telegram</a>
+          <a href="#" class="social-link"><i class="fab fa-whatsapp"></i> WhatsApp</a>
+        </div>
+      </div>
+    </section>
+  </main>
 
-    <!-- Футер как в index.html -->
-
-    <!-- Добавьте Font Awesome для иконок -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+  <!-- Футер (как в index.html) -->
+  <footer>
+    <div class="container">
+      <div class="footer-content">
+        <div class="footer-info">
+          <h3>Cake Store</h3>
+          <p>Кондитерская с любовью к своему делу</p>
+        </div>
+        <div class="footer-contacts">
+          <h3>Контакты</h3>
+          <p><i class="fas fa-map-marker-alt"></i> г. Москва, ул. Кондитерская, 15</p>
+          <p><i class="fas fa-phone"></i> +7 (495) 123-45-67</p>
+        </div>
+      </div>
+      <div class="copyright">
+        <p>&copy; 2025 Cake Store. Все права защищены.</p>
+      </div>
+    </div>
+  </footer>
 </body>
 </html>

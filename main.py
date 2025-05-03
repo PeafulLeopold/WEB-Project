@@ -58,7 +58,9 @@ def menu():
 
 @app.route('/contact')
 def contact():
-    return render_template('contact.html')
+    return render_template('contact.html',
+                         page_title="Контакты",
+                         active_page="contact")
 
 if __name__ == '__main__':
     app.run(debug=True)
