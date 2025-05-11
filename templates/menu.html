@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{{ page_title }} - Cake Store</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+  <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700&display=swap" rel="stylesheet">
+</head>
+<body>
+  <!-- Header -->
+  <header class="site-header">
+    <div class="container">
+      <h1>Cake Store</h1>
+      <nav>
+        <ul class="nav-list">
+          <li><a href="{{ url_for('index') }}" class="nav-link{% if active_page=='home' %} active{% endif %}">Главная</a></li>
+          <li><a href="{{ url_for('menu') }}" class="nav-link{% if active_page=='menu' %} active{% endif %}">Меню</a></li>
+          <li><a href="{{ url_for('about') }}" class="nav-link{% if active_page=='about' %} active{% endif %}">О нас</a></li>
+          <li><a href="{{ url_for('contact') }}" class="nav-link{% if active_page=='contact' %} active{% endif %}">Контакты</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Menu Section -->
+  <main>
+    <section class="menu-section section-spacing">
+      <div class="container">
+        <h2 class="section-title">Меню тортов</h2>
+        <div class="cake-grid">
+          {% for cake in cakes %}
+          <div class="cake-card">
+            <img src="{{ url_for('static', filename='images/cakes/' + cake.image) }}" alt="{{ cake.name }}">
+            <div class="cake-info">
+              <h3>{{ cake.name }}</h3>
+              <p class="description">{{ cake.description }}</p>
+              <p class="price">{{ cake.price }} руб.</p>
+              <a href="{{ url_for('contact') }}" class="btn">Заказать</a>
+            </div>
+          </div>
+          {% endfor %}
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Footer -->
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-contacts">
+        <h3>Контакты</h3>
+        <p>г. Москва, ул. Примерная, д.1</p>
+        <p>+7 (111) 23-33-44</p>
+      </div>
+      <div class="copyright">
+        <p>&copy; 2025 Cake Store. Все права защищены.</p>
+      </div>
+    </div>
+  </footer>
+</body>
+</html>
+
