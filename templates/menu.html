@@ -68,7 +68,31 @@
       <h3 class="modal-title">{{ cake.name }}</h3>
       <p class="modal-description">{{ cake.description }}</p>
       <p class="modal-price">{{ cake.price }} руб.</p>
-      <a href="#pay" class="btn modal-pay-button">Оплатить</a>
+      <a href="#payment-modal-{{ loop.index }}" class="btn modal-pay-button">Оплатить</a>
+    </div>
+  </div>
+  <!-- Модальное окно оплаты -->
+  <div id="payment-modal-{{ loop.index }}" class="modal">
+    <div class="modal-content payment-form">
+      <a href="#" class="modal-close">×</a>
+      <h3 class="modal-title">Оплата за {{ cake.name }}</h3>
+      <form action="#submit-payment" method="POST">
+        <div class="form-group">
+          <input type="text" name="cardholder" placeholder="Имя владельца карты" required>
+        </div>
+        <div class="form-group">
+          <input type="tel" name="cardnumber" placeholder="Номер карты (16 цифр)" pattern="[0-9]{16}" required>
+        </div>
+        <div class="form-group">
+          <input type="text" name="expiry" placeholder="MM/YY" pattern="(0[1-9]|1[0-2])/[0-9]{2}" required>
+        </div>
+        <div class="form-group">
+          <input type="tel" name="cvv" placeholder="CVV (3 цифры)" pattern="[0-9]{3}" required>
+        </div>
+        <input type="hidden" name="cake_name" value="{{ cake.name }}">
+        <input type="hidden" name="cake_price" value="{{ cake.price }}">
+        <button type="submit" class="btn">Подтвердить оплату</button>
+      </form>
     </div>
   </div>
   {% endfor %}

@@ -374,6 +374,29 @@ footer {
   animation: btnFadeIn 0.6s ease forwards;
 }
 
+/* Payment Form */
+.payment-form {
+  padding: 30px;
+  border-radius: 16px;
+  box-shadow: 0 6px 20px rgba(0,0,0,0.08);
+}
+
+.payment-form input,
+.payment-form textarea {
+  width: 100%;
+  padding: 12px 15px;
+  border: 1px solid #eaeaea;
+  border-radius: 8px;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 1rem;
+  transition: border 0.3s;
+}
+
+.payment-form input:focus {
+  border-color: #ff6f61;
+  outline: none;
+}
+
 /* Responsive */
 @media (max-width: 768px) {
   .nav-list {
@@ -401,7 +424,8 @@ footer {
       gap: 30px;
   }
 
-  .modal-content {
+  .modal-content,
+  .payment-form {
       padding: 20px;
       max-width: 90%;
   }
