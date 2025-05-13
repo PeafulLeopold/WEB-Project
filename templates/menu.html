@@ -36,7 +36,7 @@
               <h3>{{ cake.name }}</h3>
               <p class="description">{{ cake.description }}</p>
               <p class="price">{{ cake.price }} руб.</p>
-              <a href="{{ url_for('contact') }}" class="btn">Заказать</a>
+              <a href="#modal-{{ loop.index }}" class="btn">Заказать</a>
             </div>
           </div>
           {% endfor %}
@@ -54,10 +54,23 @@
         <p>+7 (111) 23-33-44</p>
       </div>
       <div class="copyright">
-        <p>&copy; 2025 Cake Store. Все права защищены.</p>
+        <p>© 2025 Cake Store. Все права защищены.</p>
       </div>
     </div>
   </footer>
+
+  <!-- Модальные окна для тортов -->
+  {% for cake in cakes %}
+  <div id="modal-{{ loop.index }}" class="modal">
+    <div class="modal-content">
+      <a href="#" class="modal-close">×</a>
+      <img src="{{ url_for('static', filename='images/cakes/' + cake.image) }}" alt="{{ cake.name }}" class="modal-image">
+      <h3 class="modal-title">{{ cake.name }}</h3>
+      <p class="modal-description">{{ cake.description }}</p>
+      <p class="modal-price">{{ cake.price }} руб.</p>
+      <a href="#pay" class="btn modal-pay-button">Оплатить</a>
+    </div>
+  </div>
+  {% endfor %}
 </body>
 </html>
-
