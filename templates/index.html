@@ -1,182 +1,199 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Cake Store - Главная</title>
-  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
-  <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700&display=swap" rel="stylesheet">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ page_title }} - Cake Store</title>
+    <link rel="stylesheet" href="/media/css/style.css">
+    <script src="/media/js/slider.js"></script>
 </head>
 <body>
-  <header>
-    <div class="container">
-      <h1>Cake Store</h1>
-      <nav>
-        <ul class="nav-list">
-          <li><a href="{{ url_for('index') }}" class="nav-link active">Главная</a></li>
-          <li><a href="{{ url_for('menu') }}" class="nav-link">Меню</a></li>
-          <li><a href="{{ url_for('about') }}" class="nav-link">О нас</a></li>
-          <li><a href="{{ url_for('contact') }}" class="nav-link">Контакты</a></li>
-        </ul>
-      </nav>
-    </div>
-  </header>
+    <header>
+        <div class="container">
+            <h1>Cake Store</h1>
+            <nav>
+                <ul class="nav-list">
+                    <li><a href="{{ url_for('index') }}" class="nav-link {% if active_page == 'home' %}active{% endif %}">Главная</a></li>
+                    <li><a href="{{ url_for('menu') }}" class="nav-link {% if active_page == 'menu' %}active{% endif %}">Меню</a></li>
+                    <li><a href="{{ url_for('about') }}" class="nav-link {% if active_page == 'about' %}active{% endif %}">О нас</a></li>
+                    <li><a href="{{ url_for('contact') }}" class="nav-link {% if active_page == 'contact' %}active{% endif %}">Контакты</a></li>
+                    <li><a href="{{ url_for('cart') }}" class="nav-link">Корзина ({{ cart|length }})</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
 
-  <main>
-    <section class="hero section-spacing">
-      <div class="container">
-        <h2>Авторские торты на заказ</h2>
-        <p class="hero-subtitle">Создаем сладкие шедевры по вашим пожеланиям</p>
-        <a href="{{ url_for('contact') }}" class="btn">Сделать заказ</a>
-      </div>
-    </section>
-
-    <section class="slider-section section-spacing">
-      <div class="container">
-          <h2 class="section-title">Наши хиты продаж</h2>
-          <div class="slider">
-              <div class="slides">
-                  {% for cake in slider_cakes %}
-                  <div class="slide">
-                      <div class="slide-content">
-                          <div class="slide-image">
-                              <img src="{{ url_for('static', filename='images/cakes/' + cake.image) }}" alt="{{ cake.name }}">
-                          </div>
-                          <div class="slide-info">
-                              <h3 class="cake-title">{{ cake.name }}</h3>
-                              <p class="cake-description">{{ cake.description }}</p>
-                              <div class="cake-price">от {{ cake.price }} ₽</div>
-                              <a href="#modal-slider-{{ loop.index }}" class="btn small">Заказать</a>
-                          </div>
-                      </div>
-                  </div>
-                  {% endfor %}
-              </div>
-          </div>
-      </div>
-    </section>
-
-    <section class="gallery section-spacing">
-      <div class="container">
-        <h2 class="section-title">Популярные торты</h2>
-        <div class="cake-grid">
-          {% for cake in popular_cakes %}
-          <div class="cake-card">
-            <img src="{{ url_for('static', filename='images/cakes/' + cake.image) }}" alt="{{ cake.name }}">
-            <div class="cake-info">
-              <h3>{{ cake.name }}</h3>
-              <p class="description">{{ cake.description }}</p>
-              <p class="price">{{ cake.price }} руб.</p>
-              <a href="#modal-gallery-{{ loop.index }}" class="btn small">Заказать</a>
+    <main>
+        <section class="hero section-spacing">
+            <div class="container">
+                <h2>Авторские торты на заказ</h2>
+                <p class="hero-subtitle">Создаем сладкие шедевры по вашим пожеланиям</p>
+                <a href="{{ url_for('menu') }}" class="btn">Сделать заказ</a> <!-- Updated link to /menu -->
             </div>
-          </div>
-          {% endfor %}
-        </div>
-      </div>
-    </section>
+        </section>
 
-    <section class="cta section-spacing">
-      <div class="container">
-        <h2 class="section-title">Хотите индивидуальный торт?</h2>
-        <p class="cta-text">Мы создадим уникальный десерт специально для вас</p>
-        <a href="{{ url_for('contact') }}" class="btn">Обсудить заказ</a>
-      </div>
-    </section>
-  </main>
+        <section class="section-spacing">
+            <div class="container">
+                <h2 class="section-title">Наши хиты продаж</h2>
+                <div class="slider">
+                    <div class="slides">
+                        {% for cake in slider_cakes %}
+                        <div class="slide">
+                            <div class="slide-content">
+                                <div class="slide-image">
+                                    <img src="/media/images/cakes/{{ cake.image }}" alt="{{ cake.name }}">
+                                </div>
+                                <div class="slide-info">
+                                    <h3 class="cake-title">{{ cake.name }}</h3>
+                                    <p class="cake-description">{{ cake.description }}</p>
+                                    <p class="price">от {{ cake.price }} ₽</p>
+                                    <form action="{{ url_for('add_to_cart') }}" method="POST">
+                                        <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+                                        <input type="hidden" name="cake_name" value="{{ cake.name }}">
+                                        <input type="hidden" name="cake_price" value="{{ cake.price }}">
+                                        <input type="hidden" name="return_url" value="{{ return_url }}">
+                                        <div class="quantity-selector">
+                                            <button type="button" class="quantity-btn minus">-</button>
+                                            <input type="number" name="quantity" value="1" min="1" class="quantity-input">
+                                            <button type="button" class="quantity-btn plus">+</button>
+                                        </div>
+                                        <button type="submit" class="btn small">В корзину</button>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+        </section>
 
-  <footer>
-    <div class="container">
-      <div class="footer-content">
-        <div class="footer-info">
-          <h3>Cake Store</h3>
-          <p>Кондитерская с любовью к своему делу</p>
-        </div>
-        <div class="footer-contacts">
-          <h3>Контакты</h3>
-          <p>г. Москва, ул. Кондитерская, 15</p>
-          <p>+7 (111) 23-33-44</p>
-        </div>
-      </div>
-      <div class="copyright">
-        <p>© 2025 Cake Store. Все права защищены.</p>
-      </div>
-    </div>
-  </footer>
+        <section class="section-spacing">
+            <div class="container">
+                <h2 class="section-title">Популярные торты</h2>
+                <div class="cake-grid">
+                    {% for cake in popular_cakes %}
+                    <div class="cake-card">
+                        <img src="/media/images/cakes/{{ cake.image }}" alt="{{ cake.name }}">
+                        <div class="cake-info">
+                            <h3>{{ cake.name }}</h3>
+                            <p class="description">{{ cake.description }}</p>
+                            <p class="price">{{ cake.price }} руб.</p>
+                            <form action="{{ url_for('add_to_cart') }}" method="POST">
+                                <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+                                <input type="hidden" name="cake_name" value="{{ cake.name }}">
+                                <input type="hidden" name="cake_price" value="{{ cake.price }}">
+                                <input type="hidden" name="return_url" value="{{ return_url }}">
+                                <div class="quantity-selector">
+                                    <button type="button" class="quantity-btn minus">-</button>
+                                    <input type="number" name="quantity" value="1" min="1" class="quantity-input">
+                                    <button type="button" class="quantity-btn plus">+</button>
+                                </div>
+                                <button type="submit" class="btn small">В корзину</button>
+                            </form>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </section>
 
-  <!-- Модальные окна для слайдера -->
-  {% for cake in slider_cakes %}
-  <div id="modal-slider-{{ loop.index }}" class="modal">
-    <div class="modal-content">
-      <a href="#" class="modal-close">×</a>
-      <img src="{{ url_for('static', filename='images/cakes/' + cake.image) }}" alt="{{ cake.name }}" class="modal-image">
-      <h3 class="modal-title">{{ cake.name }}</h3>
-      <p class="modal-description">{{ cake.description }}</p>
-      <p class="modal-price">от {{ cake.price }} ₽</p>
-      <a href="#payment-modal-slider-{{ loop.index }}" class="btn small modal-pay-button">Оплатить</a>
-    </div>
-  </div>
-  <!-- Модальное окно оплаты -->
-  <div id="payment-modal-slider-{{ loop.index }}" class="modal">
-    <div class="modal-content payment-form">
-      <a href="#" class="modal-close">×</a>
-      <h3 class="modal-title">Оплата за {{ cake.name }}</h3>
-      <form action="#submit-payment" method="POST">
-        <div class="form-group">
-          <input type="text" name="cardholder" placeholder="Имя владельца карты" required>
-        </div>
-        <div class="form-group">
-          <input type="tel" name="cardnumber" placeholder="Номер карты (16 цифр)" pattern="[0-9]{16}" required>
-        </div>
-        <div class="form-group">
-          <input type="text" name="expiry" placeholder="MM/YY" pattern="(0[1-9]|1[0-2])/[0-9]{2}" required>
-        </div>
-        <div class="form-group">
-          <input type="tel" name="cvv" placeholder="CVV (3 цифры)" pattern="[0-9]{3}" required>
-        </div>
-        <input type="hidden" name="cake_name" value="{{ cake.name }}">
-        <input type="hidden" name="cake_price" value="{{ cake.price }}">
-        <button type="submit" class="btn">Подтвердить оплату</button>
-      </form>
-    </div>
-  </div>
-  {% endfor %}
+        <section class="cta section-spacing">
+            <div class="container">
+                <h2 class="section-title">Хотите индивидуальный торт?</h2>
+                <p class="cta-text">Мы создадим уникальный десерт специально для вас</p>
+                <a href="{{ url_for('contact') }}" class="btn">Обсудить заказ</a>
+            </div>
+        </section>
+    </main>
 
-  <!-- Модальные окна для галереи -->
-  {% for cake in popular_cakes %}
-  <div id="modal-gallery-{{ loop.index }}" class="modal">
-    <div class="modal-content">
-      <a href="#" class="modal-close">×</a>
-      <img src="{{ url_for('static', filename='images/cakes/' + cake.image) }}" alt="{{ cake.name }}" class="modal-image">
-      <h3 class="modal-title">{{ cake.name }}</h3>
-      <p class="modal-description">{{ cake.description }}</p>
-      <p class="modal-price">{{ cake.price }} руб.</p>
-      <a href="#payment-modal-gallery-{{ loop.index }}" class="btn small modal-pay-button">Оплатить</a>
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-info">
+                    <h3>Cake Store</h3>
+                    <p>Кондитерская с любовью к своему делу</p>
+                </div>
+                <div class="footer-contacts">
+                    <h3>Контакты</h3>
+                    <p>г. Москва, ул. Кондитерская, 15</p>
+                    <p>+7 (111) 23-33-44</p>
+                </div>
+            </div>
+            <div class="copyright">
+                <p>© 2025 Cake Store. Все права защищены.</p>
+            </div>
+        </div>
+    </footer>
+
+    {% for cake in slider_cakes %}
+    <div id="modal-{{ loop.index }}" class="modal">
+        <div class="modal-content">
+            <a href="#" class="modal-close">×</a>
+            <img src="/media/images/cakes/{{ cake.image }}" alt="{{ cake.name }}" class="modal-image">
+            <h3 class="modal-title">{{ cake.name }}</h3>
+            <p class="modal-description">{{ cake.description }}</p>
+            <p class="modal-price">от {{ cake.price }} ₽</p>
+            <a href="#payment-{{ loop.index }}" class="modal-pay-button">Оплатить</a>
+        </div>
     </div>
-  </div>
-  <!-- Модальное окно оплаты -->
-  <div id="payment-modal-gallery-{{ loop.index }}" class="modal">
-    <div class="modal-content payment-form">
-      <a href="#" class="modal-close">×</a>
-      <h3 class="modal-title">Оплата за {{ cake.name }}</h3>
-      <form action="#submit-payment" method="POST">
-        <div class="form-group">
-          <input type="text" name="cardholder" placeholder="Имя владельца карты" required>
+
+    <div id="payment-{{ loop.index }}" class="modal">
+        <div class="modal-content payment-form">
+            <a href="#" class="modal-close">×</a>
+            <h3>Оплата за {{ cake.name }}</h3>
+            <form>
+                <div class="form-group">
+                    <input type="text" placeholder="Ваше имя" required>
+                </div>
+                <div class="form-group">
+                    <input type="email" placeholder="Email" required>
+                </div>
+                <div class="form-group">
+                    <input type="tel" placeholder="Телефон" required>
+                </div>
+                <div class="form-group">
+                    <input type="text" placeholder="Номер карты" required>
+                </div>
+                <button type="submit" class="btn">Подтвердить оплату</button>
+            </form>
         </div>
-        <div class="form-group">
-          <input type="tel" name="cardnumber" placeholder="Номер карты (16 цифр)" pattern="[0-9]{16}" required>
-        </div>
-        <div class="form-group">
-          <input type="text" name="expiry" placeholder="MM/YY" pattern="(0[1-9]|1[0-2])/[0-9]{2}" required>
-        </div>
-        <div class="form-group">
-          <input type="tel" name="cvv" placeholder="CVV (3 цифры)" pattern="[0-9]{3}" required>
-        </div>
-        <input type="hidden" name="cake_name" value="{{ cake.name }}">
-        <input type="hidden" name="cake_price" value="{{ cake.price }}">
-        <button type="submit" class="btn">Подтвердить оплату</button>
-      </form>
     </div>
-  </div>
-  {% endfor %}
+    {% endfor %}
+
+    {% for cake in popular_cakes %}
+    <div id="modal-pop-{{ loop.index }}" class="modal">
+        <div class="modal-content">
+            <a href="#" class="modal-close">×</a>
+            <img src="/media/images/cakes/{{ cake.image }}" alt="{{ cake.name }}" class="modal-image">
+            <h3 class="modal-title">{{ cake.name }}</h3>
+            <p class="modal-description">{{ cake.description }}</p>
+            <p class="modal-price">{{ cake.price }} руб.</p>
+            <a href="#payment-pop-{{ loop.index }}" class="modal-pay-button">Оплатить</a>
+        </div>
+    </div>
+
+    <div id="payment-pop-{{ loop.index }}" class="modal">
+        <div class="modal-content payment-form">
+            <a href="#" class="modal-close">×</a>
+            <h3>Оплата за {{ cake.name }}</h3>
+            <form>
+                <div class="form-group">
+                    <input type="text" placeholder="Ваше имя" required>
+                </div>
+                <div class="form-group">
+                    <input type="email" placeholder="Email" required>
+                </div>
+                <div class="form-group">
+                    <input type="tel" placeholder="Телефон" required>
+                </div>
+                <div class="form-group">
+                    <input type="text" placeholder="Номер карты" required>
+                </div>
+                <button type="submit" class="btn">Подтвердить оплату</button>
+            </form>
+        </div>
+    </div>
+    {% endfor %}
 </body>
 </html>

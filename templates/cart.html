@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ page_title }} - Cake Store</title>
+    <link rel="stylesheet" href="/media/css/style.css">
+</head>
+<body>
+    <header>
+        <div class="container">
+            <h1>Cake Store</h1>
+            <nav>
+                <ul class="nav-list">
+                    <li><a href="{{ url_for('index') }}" class="nav-link {% if active_page == 'home' %}active{% endif %}">Главная</a></li>
+                    <li><a href="{{ url_for('menu') }}" class="nav-link {% if active_page == 'menu' %}active{% endif %}">Меню</a></li>
+                    <li><a href="{{ url_for('about') }}" class="nav-link {% if active_page == 'about' %}active{% endif %}">О нас</a></li>
+                    <li><a href="{{ url_for('contact') }}" class="nav-link {% if active_page == 'contact' %}active{% endif %}">Контакты</a></li>
+                    <li><a href="{{ url_for('cart') }}" class="nav-link {% if active_page == 'cart' %}active{% endif %}">Корзина ({{ cart|length }})</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <section class="section-spacing">
+            <div class="container">
+                <h2 class="section-title">Ваша корзина</h2>
+                {% if cart %}
+                <div class="cake-grid">
+                    {% for item in cart %}
+                    <div class="cake-card">
+                        <div class="cake-info">
+                            <h3>{{ item.name }}</h3>
+                            <p class="description">Цена: {{ item.price }} руб.</p>
+                            <p class="description">Количество: {{ item.quantity }}</p>
+                            <p class="price">Итого: {{ item.total }} руб.</p>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+                <div style="text-align: center; margin-top: 40px;">
+                    <p class="price">Общая сумма: {{ cart|sum(attribute='total') }} руб.</p>
+                    <a href="{{ url_for('checkout') }}" class="btn">Оформить заказ</a> <!-- Updated link -->
+                </div>
+                {% else %}
+                <p style="text-align: center; font-size: 1.2rem;">Ваша корзина пуста.</p>
+                {% endif %}
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-info">
+                    <h3>Cake Store</h3>
+                    <p>Кондитерская с любовью к своему делу</p>
+                </div>
+                <div class="footer-contacts">
+                    <h3>Контакты</h3>
+                    <p>г. Москва, ул. Кондитерская, 15</p>
+                    <p>+7 (111) 23-33-44</p>
+                </div>
+            </div>
+            <div class="copyright">
+                <p>© 2025 Cake Store. Все права защищены.</p>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>

@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ page_title }} - Cake Store</title>
+    <link rel="stylesheet" href="/media/css/style.css">
+</head>
+<body>
+    <header>
+        <div class="container">
+            <h1>Cake Store</h1>
+            <nav>
+                <ul class="nav-list">
+                    <li><a href="{{ url_for('index') }}" class="nav-link {% if active_page == 'home' %}active{% endif %}">Главная</a></li>
+                    <li><a href="{{ url_for('menu') }}" class="nav-link {% if active_page == 'menu' %}active{% endif %}">Меню</a></li>
+                    <li><a href="{{ url_for('about') }}" class="nav-link {% if active_page == 'about' %}active{% endif %}">О нас</a></li>
+                    <li><a href="{{ url_for('contact') }}" class="nav-link {% if active_page == 'contact' %}active{% endif %}">Контакты</a></li>
+                    <li><a href="{{ url_for('cart') }}" class="nav-link {% if active_page == 'cart' %}active{% endif %}">Корзина ({{ cart|length }})</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <section class="section-spacing">
+            <div class="container">
+                <h2 class="section-title">Оформление заказа</h2>
+                {% if error %}
+                <p style="color: #ff6f61; text-align: center; margin-bottom: 20px;">{{ error }}</p>
+                {% endif %}
+                <div class="contact-grid">
+                    <!-- Left: Order Form -->
+                    <div class="contact-form">
+                        <h3>Ваши данные</h3>
+                        <form action="{{ url_for('checkout') }}" method="POST">
+                            <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+                            <div class="form-group">
+                                <input type="text" name="name" placeholder="Ваше имя" required>
+                            </div>
+                            <div class="form-group">
+                                <input type="email" name="email" placeholder="Email" required>
+                            </div>
+                            <div class="form-group">
+                                <input type="tel" name="phone" placeholder="Телефон" required>
+                            </div>
+                            <div class="form-group">
+                                <label style="display: flex; align-items: center; gap: 10px; padding: 10px 0;">
+                                    <input type="checkbox" name="delivery" id="delivery">
+                                    <span style="font-size: 1rem;">Доставка</span>
+                                </label>
+                            </div>
+                            <div class="form-group" id="address-field" style="display: none;">
+                                <textarea name="address" placeholder="Адрес доставки (улица, дом, квартира)" style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 4px; resize: vertical;"></textarea>
+                            </div>
+                            <button type="submit" class="btn">Подтвердить заказ</button>
+                        </form>
+                    </div>
+                    <!-- Right: Order Summary -->
+                    <div class="contact-info">
+                        <h3>Ваш заказ</h3>
+                        {% for item in cart %}
+                        <div style="margin-bottom: 20px; padding-bottom: 10px; border-bottom: 1px solid #eaeaea;">
+                            <p><strong>{{ item.name }}</strong></p>
+                            <p>Количество: {{ item.quantity }}</p>
+                            <p>Цена: {{ item.price }} руб.</p>
+                            <p>Итого: {{ item.total }} руб.</p>
+                        </div>
+                        {% endfor %}
+                        <p class="price" style="text-align: right;">Общая сумма: {{ total }} руб.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-info">
+                    <h3>Cake Store</h3>
+                    <p>Кондитерская с любовью к своему делу</p>
+                </div>
+                <div class="footer-contacts">
+                    <h3>Контакты</h3>
+                    <p>г. Москва, ул. Кондитерская, 15</p>
+                    <p>+7 (111) 23-33-44</p>
+                </div>
+            </div>
+            <div class="copyright">
+                <p>© 2025 Cake Store. Все права защищены.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        document.getElementById('delivery').addEventListener('change', function() {
+            const addressField = document.getElementById('address-field');
+            addressField.style.display = this.checked ? 'block' : 'none';
+        });
+    </script>
+</body>
+</html>
