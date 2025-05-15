@@ -1,8 +1,7 @@
-from flask import Flask, render_template, request, redirect, url_for, session
+from flask import Flask, render_template, request, redirect, url_for
 from flask_wtf.csrf import CSRFProtect, generate_csrf
 from db.database import db, CartItem, Order
 import json
-from datetime import datetime
 
 app = Flask(__name__, static_folder='media', static_url_path='/media')
 app.config['SECRET_KEY'] = 'your_secret_key'
@@ -141,7 +140,7 @@ def cart():
 def checkout():
     cart_items = CartItem.query.all()
     if not cart_items:
-        return redirect(url_for('cart'))  # Redirect to cart if empty
+        return redirect(url_for('cart'))
 
     cart_items_with_totals = [
         {
@@ -158,10 +157,9 @@ def checkout():
         name = request.form.get('name')
         email = request.form.get('email')
         phone = request.form.get('phone')
-        delivery = 'delivery' in request.form  # Checkbox for delivery
+        delivery = 'delivery' in request.form
         address = request.form.get('address') if delivery else None
 
-        # Validate required fields
         if not all([name, email, phone]):
             return render_template('checkout.html',
                                    cart=cart_items_with_totals,
@@ -170,8 +168,7 @@ def checkout():
                                    active_page="cart",
                                    error="Пожалуйста, заполните все обязательные поля.")
 
-        # Save order to database
-        order_items = json.dumps(cart_items_with_totals)  # Store as JSON string
+        order_items = json.dumps(cart_items_with_totals)
         order = Order(
             name=name,
             email=email,
@@ -183,7 +180,6 @@ def checkout():
         )
         db.session.add(order)
 
-        # Clear cart
         CartItem.query.delete()
         db.session.commit()
 
@@ -198,7 +194,7 @@ def checkout():
 @app.route('/confirmation/<int:order_id>')
 def confirmation(order_id):
     order = Order.query.get_or_404(order_id)
-    items = json.loads(order.items)  # Parse JSON string back to list
+    items = json.loads(order.items)
     return render_template('confirmation.html',
                            order=order,
                            items=items,

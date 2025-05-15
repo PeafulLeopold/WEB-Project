@@ -38,7 +38,7 @@
                                 <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
                                 <input type="hidden" name="cake_name" value="{{ cake.name }}">
                                 <input type="hidden" name="cake_price" value="{{ cake.price }}">
-                                <input type="hidden" name="return_url" value="{{ return_url }}"> <!-- Add return URL -->
+                                <input type="hidden" name="return_url" value="{{ return_url }}">
                                 <div class="quantity-selector">
                                     <button type="button" class="quantity-btn minus">-</button>
                                     <input type="number" name="quantity" value="1" min="1" class="quantity-input">

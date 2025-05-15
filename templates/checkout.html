@@ -30,7 +30,6 @@
                 <p style="color: #ff6f61; text-align: center; margin-bottom: 20px;">{{ error }}</p>
                 {% endif %}
                 <div class="contact-grid">
-                    <!-- Left: Order Form -->
                     <div class="contact-form">
                         <h3>Ваши данные</h3>
                         <form action="{{ url_for('checkout') }}" method="POST">
@@ -56,7 +55,6 @@
                             <button type="submit" class="btn">Подтвердить заказ</button>
                         </form>
                     </div>
-                    <!-- Right: Order Summary -->
                     <div class="contact-info">
                         <h3>Ваш заказ</h3>
                         {% for item in cart %}
